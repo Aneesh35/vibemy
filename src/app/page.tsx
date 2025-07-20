@@ -1,11 +1,16 @@
-// "use client"
+"use client"
 import { Button } from "@/components/ui/button";
 import { useTRPC } from "@/trpc/client";
-import { caller, getQueryClient, trpc } from "@/trpc/server";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
-import { Suspense } from "react";
-const Page = async  () => {
-  return <div>hello</div>
+import { useMutation } from "@tanstack/react-query";
+
+const Page = () => {
+  const trpc = useTRPC();
+  const invoke = useMutation(trpc.invoke.mutationOptions({}))
+  return <div className="p-4 max-w-7xl mx-auto">
+    <Button onClick={()=>invoke.mutate({email:"aneeshrao16@gmail.com"})}>
+      Invoke the background Job
+    </Button>
+  </div>
 }
 
 export default Page;
