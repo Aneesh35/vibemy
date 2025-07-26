@@ -1,13 +1,20 @@
 "use client"
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useTRPC } from "@/trpc/client";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const Page = () => {
   const trpc = useTRPC();
-  const invoke = useMutation(trpc.invoke.mutationOptions({}))
+  const [prompt, setPrompt] = useState<string>("");
+  const invoke = useMutation(trpc.invoke.mutationOptions({onSuccess:()=>{
+    toast.success("background job started!")
+  }}))
   return <div className="p-4 max-w-7xl mx-auto">
-    <Button onClick={()=>invoke.mutate({email:"aneeshrao16@gmail.com"})}>
+    <Input onChange={(e)=>setPrompt(e.target.value)} value={prompt} />
+    <Button disabled={invoke.isPending} onClick={()=>invoke.mutate({prompt:prompt})}>
       Invoke the background Job
     </Button>
   </div>
