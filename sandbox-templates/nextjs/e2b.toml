@@ -1,0 +1,17 @@
+# This is a config for E2B sandbox template.
+# You can use template ID (c8pweqaq9zrz5pncgt9o) or template name (vibemy-test2) to create a sandbox:
+
+# Python SDK
+# from e2b import Sandbox, AsyncSandbox
+# sandbox = Sandbox("vibemy-test2") # Sync sandbox
+# sandbox = await AsyncSandbox.create("vibemy-test2") # Async sandbox
+
+# JS SDK
+# import { Sandbox } from 'e2b'
+# const sandbox = await Sandbox.create('vibemy-test2')
+
+team_id = "8bf57959-3ab3-4623-ab6a-7e7637d27137"
+start_cmd = "/compile_page.sh"
+dockerfile = "e2b.Dockerfile"
+template_name = "vibemy-test2"
+template_id = "c8pweqaq9zrz5pncgt9o"
