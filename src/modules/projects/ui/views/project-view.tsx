@@ -32,7 +32,7 @@ const ProjectView = ({ projectId }: Props) => {
                     <MessageContainer projectId={projectId} activeFragment={activeFragment} setActiveFragment={setActiveFragment} />
                 </Suspense>
             </ResizablePanel>
-            <ResizableHandle withHandle />
+            <ResizableHandle className="hover:bg-primary transition-colors"  />
             <ResizablePanel defaultSize={65} minSize={50}>
                 <Tabs className="h-full gap-0"
                     defaultValue="preview"
