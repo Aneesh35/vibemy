@@ -17,6 +17,8 @@ import {
     BreadcrumbSeparator,
     BreadcrumbEllipsis
 } from "@/components/ui/breadcrumb";
+import { convertFilesToTreeItems } from "@/lib/utils";
+import { TreeView } from "@/components/tree-view";
 
 type FileCollection = { [path: string]: string }
 
@@ -25,22 +27,105 @@ function getLanguageExtension(filename: string): string {
     return extension || "text"
 }
 
+interface FileBreadcrumbProps {
+    filePath: string
+}
+
+const FileBreadcrumb = ({ filePath }: FileBreadcrumbProps) => {
+    const pathSegments = filePath.split("/")
+    const maxSegments = 3;
+    const renderBreadcrumbsItems = () => {
+        if (pathSegments.length <= maxSegments) {
+
+            return pathSegments.map((segment, index) => {
+                const isLast = index == pathSegments.length - 1;
+                return (
+                    <Fragment key={index}>
+                        <BreadcrumbItem>
+                            {isLast ? (
+                                <BreadcrumbPage className="font-medium">
+                                    {segment}
+                                </BreadcrumbPage>
+                            ) : (
+                                <span className="text-muted-foreground">{segment}</span>
+                            )}
+                        </BreadcrumbItem>
+                        {!isLast && <BreadcrumbSeparator />}
+                    </Fragment>
+                )
+            })
+        } else {
+            const firstSegment = pathSegments[0];
+            const lastSegment = pathSegments[pathSegments.length - 1]
+            return (
+                <>
+                    <BreadcrumbItem>
+                        <span className="text-muted-foreground">{firstSegment}</span>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbEllipsis />
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className="font-medium">
+                                {lastSegment}
+                            </BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbItem>
+
+                </>
+            )
+        }
+    }
+    return (
+        <Breadcrumb>
+            <BreadcrumbList>
+                {renderBreadcrumbsItems()}
+            </BreadcrumbList>
+        </Breadcrumb>
+    )
+}
+
 interface FileExplorerProps {
     files: FileCollection
 }
 
 export const FileExplorer = ({ files }: FileExplorerProps) => {
+    const [copied, setCopied] = useState(false);
     const [selectedFile, SetSelectedFile] = useState<string | null>(() => {
         const filekeys = Object.keys(files);
         return filekeys.length > 0 ? filekeys[0] : null
     })
+
+    const treeData = useMemo(() => {
+        return convertFilesToTreeItems(files)
+    }, [files]);
+
+    const handleFileSelect = useCallback((filePath: string) => {
+        if (files[filePath]) {
+            SetSelectedFile(filePath);
+        }
+    }, [files])
+
+    const handleCopy = () => {
+        try {
+            if (selectedFile) {
+                navigator.clipboard.writeText(files[selectedFile]);
+                setCopied(true)
+                setTimeout(() => setCopied(false), 2000)
+            }
+        } catch (error) {
+            console.error("failed to copy")
+        }
+    }
+
     return (
         <ResizablePanelGroup direction="horizontal">
             <ResizablePanel defaultSize={30} minSize={30} className="bg-sidebar">
                 <TreeView
-                    data={[]}
+                    data={treeData}
                     value={selectedFile}
-                    onSelect={() => { }}
+                    onSelect={handleFileSelect}
                 />
             </ResizablePanel>
             <ResizableHandle className="hover:bg-primary transition-colors" />
@@ -48,14 +133,15 @@ export const FileExplorer = ({ files }: FileExplorerProps) => {
                 {selectedFile && files[selectedFile] ? (
                     <div className="h-full w-full flex flex-col">
                         <div className="border-b bg-sidebar px-4 py-2 flex justify-between items-center gap-x-2">
+                            <FileBreadcrumb filePath={selectedFile} />
                             <Hint text=" copy to clipboard" side="bottom">
                                 <Button variant="outline"
                                     size="icon"
                                     className="ml-auto"
-                                    onClick={() => { }}
-                                    disabled={false}
+                                    onClick={handleCopy}
+                                    disabled={copied}
                                 >
-                                    <CopyIcon />
+                                    {copied ? <CopyCheckIcon /> : <CopyIcon />}
                                 </Button>
                             </Hint>
                         </div>

@@ -39,11 +39,11 @@ const ProjectView = ({ projectId }: Props) => {
                     value={tabsState}
                     onValueChange={(value) => setTabState(value as "preview" | "code")}>
                     <div className="w-full flex items-center p-2 border-b gap-x-2">
-                        <TabsList className="h-0 p-0 border rounded-md">
-                            <TabsTrigger value="preview" className="rounded-md">
+                        <TabsList className="h-1 p-4 border rounded-md">
+                            <TabsTrigger value="preview" className="rounded-md p-3">
                                 <EyeIcon /><span>Demo</span>
                             </TabsTrigger>
-                            <TabsTrigger value="Code" className="rounded-md">
+                            <TabsTrigger value="code" className="rounded-md p-2">
                                 <CodeIcon /><span>Code</span>
                             </TabsTrigger>
                         </TabsList>
@@ -58,7 +58,7 @@ const ProjectView = ({ projectId }: Props) => {
                     <TabsContent value="preview">
                         {!!activeFragment && <FragmentWeb data={activeFragment} />}
                     </TabsContent>
-                    <TabsContent value="code" className="min-h-0">
+                    <TabsContent value="code" className="flex-1 min-h-0 h-full">
                         {!!activeFragment?.files && (
                             <FileExplorer files={activeFragment.files as { [path: string]: string }} />
                         )}
