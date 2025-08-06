@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Form, FormField } from "@/components/ui/form"
 import { useRouter } from "next/navigation"
 import { PROJECT_TEMPLATES } from "../../constant"
+import { useClerk } from "@clerk/nextjs"
 
 const formSchema = z.object({
     value: z.string().min(1, { message: "Value is Required" })
@@ -23,6 +24,7 @@ const formSchema = z.object({
 export const ProjectForm = () => {
     const router = useRouter()
     const trpc = useTRPC();
+    const clerk = useClerk()
     const queryClient = useQueryClient();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -37,6 +39,9 @@ export const ProjectForm = () => {
         },
         onError: (error) => {
             toast.error(error.message);
+            if (error.data?.code == "UNAUTHORIZED") {
+                clerk.openSignIn();
+            }
         }
     }));
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -44,11 +49,11 @@ export const ProjectForm = () => {
             value: values.value,
         })
     }
-    const onSelect=(value:string)=>{
-        form.setValue("value",value,{
-            shouldDirty:true,
-            shouldTouch:true,
-            shouldValidate:true,
+    const onSelect = (value: string) => {
+        form.setValue("value", value, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true,
         })
     }
     const [isFocused, setIsFocused] = useState(false)
@@ -109,7 +114,7 @@ export const ProjectForm = () => {
                             variant="outline"
                             size="sm"
                             className="bg-white dark:bg-sidebar"
-                            onClick={()=>onSelect(template.prompt)}
+                            onClick={() => onSelect(template.prompt)}
                         >
                             {template.emoji}{template.title}
                         </Button>
