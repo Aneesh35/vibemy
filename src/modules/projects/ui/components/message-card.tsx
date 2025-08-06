@@ -49,7 +49,7 @@ const AssistantMessage = ({ content, fragment, createdAt, isActiveFragment, type
             type === "ERROR" && "text-red-700 dark:text-red-500",
         )}>
             <div className="flex items-center gap-2 pl-2 mb-2">
-                <Image src="/logo.png" alt="Vibemy logo" width={18} height={18} className="shrink-0 " />
+                <Image src="/logo.svg" alt="Vibemy logo" width={18} height={18} className="shrink-0 " />
                 <span className="text-sm font-medium">Vibemy</span>
                 <span className="text-sm text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
                     {format(createdAt, "HH:mm 'on' MMM dd, yyyy")}

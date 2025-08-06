@@ -8,7 +8,7 @@ const Page = () => {
       <section className="space-y-6 py-[16vh] 2xl:py-48">
         <div className="flex flex-col items-center">
           <Image
-            src="/logo.png"
+            src="/logo.svg"
             alt="Vibemy"
             width={100}
             height={100}

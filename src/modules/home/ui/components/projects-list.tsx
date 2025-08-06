@@ -37,7 +37,7 @@ export const ProjectsList = () => {
                         >
                             <Link href={`/projects/${project.id}`}>
                                 <div className="flex items-center gap-x-4">
-                                    <Image src="/logo.png" 
+                                    <Image src="/logo.svg" 
                                     alt="Vibemy"
                                     width={32}
                                     height={32}
