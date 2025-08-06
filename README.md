@@ -173,7 +173,3 @@ When modifying the schema:
 npx prisma migrate dev --name your_migration_name
 npx prisma generate
 ```
-
-## 🤝 Contributing
-
-We welcome contributions! Please feel free to submit a Pull Request.
