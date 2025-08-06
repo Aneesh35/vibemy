@@ -151,7 +151,7 @@ export const codeAgentFunction = inngest.createFunction(
         }),
       ],
       lifecycle: {
-        //@ts-ignore
+        //@ts-expect-ignore
         onResponse: async ({ result, network }) => {
           const lastAssistantMessageText =
             lastAssistantTextMessageContent(result);

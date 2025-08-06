@@ -115,7 +115,7 @@ export const FileExplorer = ({ files }: FileExplorerProps) => {
                 setTimeout(() => setCopied(false), 2000)
             }
         } catch (error) {
-            console.error("failed to copy")
+            console.log("failed to copy",error)
         }
     }
 

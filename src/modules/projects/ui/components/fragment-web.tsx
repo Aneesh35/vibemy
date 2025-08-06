@@ -21,7 +21,7 @@ export function FragmentWeb({ data }: Props) {
             setCopied(true)
             setTimeout(() => setCopied(false), 2000)
         } catch (error) {
-            console.error("failed to copy")
+            console.log("failed to copy",error)
         }
     }
 

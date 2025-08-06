@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const UserControl = ({ showName }: Props) => {
-    const currentTheme=useCurrentTheme();
+    const currentTheme = useCurrentTheme();
     return (
         <UserButton
             showName={showName}
