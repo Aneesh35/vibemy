@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { Spinner } from "@/components/spinner";
 
 const ShimmerMessages = () => {
     const messages = [
@@ -23,8 +24,9 @@ const ShimmerMessages = () => {
     }, [messages.length]);
 
     return (
-        <div className="flex items-center gap-2">
-            <span className="text-base text-muted-foreground animated-pulse">
+        <div className="flex items-center gap-3">
+            <Spinner size="sm" color="muted" />
+            <span className="text-base text-muted-foreground animate-pulse">
                 {messages[currentMessageIndex]}
             </span>
         </div>

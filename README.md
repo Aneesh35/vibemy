@@ -4,8 +4,6 @@
 
 Vibemy is an innovative AI-powered development platform that allows you to build full-stack applications through natural language conversations. Simply describe what you want to build, and Vibemy's AI agent will create, modify, and deploy your applications in real-time using isolated sandbox environments.
 
-![Vibemy Logo](public/logo.png)
-
 ## ✨ Features
 
 ### 🤖 AI-Powered Development
@@ -39,16 +37,7 @@ Vibemy is an innovative AI-powered development platform that allows you to build
 
 ## 🎯 Project Templates
 
-Get started quickly with our pre-built templates:
-
-- 🎬 **Netflix Clone** - Streaming platform with hero banner and movie sections
-- 📦 **Admin Dashboard** - Professional dashboard with charts and tables
-- 📋 **Kanban Board** - Task management with drag-and-drop
-- 🗂️ **File Manager** - File organization and management interface
-- 📺 **YouTube Clone** - Video platform with thumbnails and categories
-- 🛍️ **E-commerce Store** - Shopping platform with cart functionality
-- 🏡 **Airbnb Clone** - Property listings with filters and details
-- 🎵 **Spotify Clone** - Music player with playlists and controls
+Get started quickly with our pre-built templates.
 
 ## 🚀 Getting Started
 
@@ -139,26 +128,6 @@ Get started quickly with our pre-built templates:
 4. **Live Execution**: Code runs immediately in isolated environment
 5. **Response Generation**: AI provides explanation and next steps
 
-## 📁 Project Structure
-
-```text
-src/
-├── app/                    # Next.js app router
-│   ├── (home)/            # Home page and auth
-│   ├── projects/          # Project workspace
-│   └── api/               # API routes
-├── components/            # Reusable UI components
-│   └── ui/               # Shadcn/ui components
-├── modules/              # Feature modules
-│   ├── home/             # Landing page
-│   ├── projects/         # Project management
-│   ├── messages/         # Chat interface
-│   └── usage/            # Usage tracking
-├── inngest/              # Background job functions
-├── lib/                  # Utilities and database
-└── trpc/                 # Type-safe API layer
-```
-
 ## 🔧 Configuration
 
 ### Sandbox Templates
@@ -208,19 +177,3 @@ npx prisma generate
 ## 🤝 Contributing
 
 We welcome contributions! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-## 🙏 Acknowledgments
-
-- [E2B](https://e2b.dev) for sandbox environments
-- [Inngest](https://inngest.com) for reliable background processing
-- [Clerk](https://clerk.dev) for authentication
-- [Shadcn/ui](https://ui.shadcn.com) for beautiful components
-- [OpenAI](https://openai.com) for GPT-4 AI capabilities
-
----
-
-**Ready to build something amazing?** 🚀 [Get started with Vibemy](https://vibemy.com)

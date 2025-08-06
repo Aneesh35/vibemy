@@ -18,6 +18,7 @@ import { UserControl } from "@/components/user-control";
 import { useAuth } from "@clerk/nextjs";
 import { ErrorBoundary } from "react-error-boundary"
 import { ErrorFallback } from "@/components/error-fallback";
+import { CenteredSpinner } from "@/components/spinner";
 interface Props {
     projectId: string
 }
@@ -31,12 +32,12 @@ const ProjectView = ({ projectId }: Props) => {
         <ResizablePanelGroup direction="horizontal">
             <ResizablePanel defaultSize={35} minSize={20} className="flex flex-col min-h-0" >
                 <ErrorBoundary fallback={<ErrorFallback />}>
-                    <Suspense fallback={<p>Loading Project..</p>}>
+                    <Suspense fallback={<CenteredSpinner size="md" className="py-8" />}>
                         <ProjectHeader projectId={projectId} />
                     </Suspense>
                 </ErrorBoundary>
                 <ErrorBoundary fallback={<ErrorFallback />}>
-                    <Suspense fallback={<p>Loading Messages..</p>}>
+                    <Suspense fallback={<CenteredSpinner size="md" className="flex-1" />}>
                         <MessageContainer projectId={projectId} activeFragment={activeFragment} setActiveFragment={setActiveFragment} />
                     </Suspense>
                 </ErrorBoundary>
