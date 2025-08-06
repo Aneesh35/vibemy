@@ -15,12 +15,15 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { FileExplorer } from "@/components/file-explorer";
 import { UserControl } from "@/components/user-control";
+import { useAuth } from "@clerk/nextjs";
 
 interface Props {
     projectId: string
 }
 
 const ProjectView = ({ projectId }: Props) => {
+    const { has } = useAuth();
+    const hasProAcess = has?.({ plan: "pro" })
     const [activeFragment, setActiveFragment] = useState<Fragment | null>(null);
     const [tabsState, setTabState] = useState<"preview" | "code">("preview")
     return (<div className="h-screen">
@@ -33,7 +36,7 @@ const ProjectView = ({ projectId }: Props) => {
                     <MessageContainer projectId={projectId} activeFragment={activeFragment} setActiveFragment={setActiveFragment} />
                 </Suspense>
             </ResizablePanel>
-            <ResizableHandle className="hover:bg-primary transition-colors"  />
+            <ResizableHandle className="hover:bg-primary transition-colors" />
             <ResizablePanel defaultSize={65} minSize={50}>
                 <Tabs className="h-full gap-0"
                     defaultValue="preview"
@@ -49,11 +52,13 @@ const ProjectView = ({ projectId }: Props) => {
                             </TabsTrigger>
                         </TabsList>
                         <div className="ml-auto flex items-center gap-x-2">
-                            <Button asChild size="sm" variant="tertiary">
-                                <Link href="/pricing">
-                                    <CrownIcon />Upgrade
-                                </Link>
-                            </Button>
+                            {!hasProAcess &&
+                                <Button asChild size="sm" variant="tertiary">
+                                    <Link href="/pricing">
+                                        <CrownIcon />Upgrade
+                                    </Link>
+                                </Button>
+                            }
                             <UserControl />
                         </div>
                     </div>
